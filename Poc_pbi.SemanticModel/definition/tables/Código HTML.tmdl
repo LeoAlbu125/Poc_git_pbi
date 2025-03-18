@@ -1,0 +1,19 @@
+table 'Código HTML'
+	lineageTag: 76254b6e-4b60-4506-96bf-9fe9e8c8e06d
+
+	column 'Código HTML'
+		dataType: string
+		lineageTag: 0b60473e-4aa0-49ac-9c0c-3b01a38d1624
+		summarizeBy: none
+		sourceColumn: Código HTML
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Código HTML' = m
+		mode: import
+		source = Web.BrowserContents("https://cat-fact.herokuapp.com/#/cat/facts")
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text
+

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "81df7ebfe04bed728cc4",
+  "position": {
+    "x": 112.50249694817445,
+    "y": 144.88957940295194,
+    "z": 0,
+    "height": 318.75707468649426,
+    "width": 567.62623460215286,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "areaChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ReceitaECustos"
+                    }
+                  },
+                  "Property": "Ano"
+                }
+              },
+              "queryRef": "ReceitaECustos.Ano",
+              "nativeQueryRef": "Ano",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ReceitaECustos"
+                    }
+                  },
+                  "Property": "Mês"
+                }
+              },
+              "queryRef": "ReceitaECustos.Mês",
+              "nativeQueryRef": "Mês",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ReceitaECustos"
+                        }
+                      },
+                      "Property": "Receita"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "CountNonNull(ReceitaECustos.Receita)",
+              "nativeQueryRef": "Soma de Receita"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ReceitaECustos"
+                        }
+                      },
+                      "Property": "Custos Operacionais"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(ReceitaECustos.Custos Operacionais)",
+              "nativeQueryRef": "Soma de Custos Operacionais"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ReceitaECustos"
+                  }
+                },
+                "Property": "Ano"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ReceitaECustos"
+                  }
+                },
+                "Property": "Mês"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,10 @@
+relationship 12a53f89-8acf-4a86-afe7-3ccdc8e21213
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Planilha2.'Full Data'
+	toColumn: LocalDateTable_cb3066c4-aa65-4791-99a7-d7d90a337a1f.Date
+
+relationship 46a7051b-1466-4db2-aefa-c5a4a2c9a9a2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Planilha2.Data
+	toColumn: LocalDateTable_6e19ffd4-6df0-4182-a943-a6393d984742.Date
+

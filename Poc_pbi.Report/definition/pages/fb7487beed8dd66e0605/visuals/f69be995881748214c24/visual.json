@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "f69be995881748214c24",
+  "position": {
+    "x": 710.8112307180113,
+    "y": 158.52624569970035,
+    "z": 1,
+    "height": 245.45999334147152,
+    "width": 569.33081788924642,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha1"
+                    }
+                  },
+                  "Property": "Column10"
+                }
+              },
+              "queryRef": "Planilha1.Column10",
+              "nativeQueryRef": "Column10"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha1"
+                    }
+                  },
+                  "Property": "Column11"
+                }
+              },
+              "queryRef": "Planilha1.Column11",
+              "nativeQueryRef": "Column11"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

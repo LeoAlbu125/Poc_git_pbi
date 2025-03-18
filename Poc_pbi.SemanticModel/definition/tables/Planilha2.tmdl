@@ -1,0 +1,155 @@
+table Planilha2
+	lineageTag: a7ebd417-3daa-4bc6-b330-22c1239e26d6
+
+	column 'Full Data'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1ac3a643-54a5-403b-b573-6eaf536efdb1
+		summarizeBy: none
+		sourceColumn: Full Data
+
+		variation Variation
+			isDefault
+			relationship: 12a53f89-8acf-4a86-afe7-3ccdc8e21213
+			defaultHierarchy: LocalDateTable_cb3066c4-aa65-4791-99a7-d7d90a337a1f.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 663d2a5e-fc3c-4bf2-9e08-e13418c08506
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 46a7051b-1466-4db2-aefa-c5a4a2c9a9a2
+			defaultHierarchy: LocalDateTable_6e19ffd4-6df0-4182-a943-a6393d984742.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Column3
+		dataType: int64
+		formatString: 0
+		lineageTag: b0ccdc1c-b99b-4f63-a7ec-e90b537940ce
+		summarizeBy: sum
+		sourceColumn: Column3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column4
+		dataType: int64
+		formatString: 0
+		lineageTag: 66438d39-7c78-4a43-bdde-61ac171fbc21
+		summarizeBy: sum
+		sourceColumn: Column4
+
+		annotation SummarizationSetBy = Automatic
+
+	column Entrada
+		dataType: int64
+		formatString: 0
+		lineageTag: 38a8c45f-3152-40bc-984f-caefca8760e2
+		summarizeBy: sum
+		sourceColumn: Entrada
+
+		annotation SummarizationSetBy = Automatic
+
+	column Saida
+		dataType: double
+		lineageTag: 78e0b8e7-556c-4e05-a81a-868f7fca4a7c
+		summarizeBy: sum
+		sourceColumn: Saida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Saldo
+		dataType: double
+		lineageTag: fbfe964d-9ef5-4663-a12d-a6ab8b2aa988
+		summarizeBy: sum
+		sourceColumn: Saldo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column8
+		dataType: string
+		lineageTag: 2baeb239-b7f7-4989-9fd8-9f8b16bc5d6f
+		summarizeBy: none
+		sourceColumn: Column8
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column9
+		dataType: string
+		lineageTag: dd9f9f35-0ebc-4582-9f37-a43a18e4a479
+		summarizeBy: none
+		sourceColumn: Column9
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column10
+		dataType: string
+		lineageTag: 06dbd6ac-3bbc-4ebe-b8e8-6fdf9f6ef531
+		summarizeBy: none
+		sourceColumn: Column10
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Rent (weekly)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 53fe9e07-3c8d-436f-b655-8db71233f846
+		summarizeBy: sum
+		sourceColumn: Rent (weekly)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Daily expenses'
+		dataType: int64
+		formatString: 0
+		lineageTag: e0bf4e09-921a-4d34-8b10-ec39f6a99446
+		summarizeBy: sum
+		sourceColumn: Daily expenses
+
+		annotation SummarizationSetBy = Automatic
+
+	column Salary
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b002ac1-1c9f-4400-9a69-6e7cd3ab3d52
+		summarizeBy: sum
+		sourceColumn: Salary
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Part time (daily)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 48e14fa3-1c49-433b-8472-e2881591ff61
+		summarizeBy: sum
+		sourceColumn: Part time (daily)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Planilha2 = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\leona\OneDrive\Área de Trabalho\code\PBI GIT\Poc_git_pbi\plano_contencao_de_gastos.xlsx"), null, true),
+				    Planilha2_Sheet = Fonte{[Item="Planilha2",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha2_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Full Data", type date}, {"Data", type date}, {"Column3", Int64.Type}, {"Column4", Int64.Type}, {"Entrada", Int64.Type}, {"Saida", type number}, {"Saldo", type number}, {"Column8", type any}, {"Column9", type any}, {"Column10", type any}, {"Rent (weekly)", Int64.Type}, {"Daily expenses", Int64.Type}, {"Salary", Int64.Type}, {"Part time (daily)", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

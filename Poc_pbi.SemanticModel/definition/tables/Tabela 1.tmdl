@@ -1,0 +1,33 @@
+table 'Tabela 1'
+	lineageTag: ac76c2e7-b779-44f6-b170-9414ff1447f8
+
+	column Column1
+		dataType: string
+		lineageTag: f6ed8d76-d995-4473-bc83-6be7d9e77efb
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column2
+		dataType: string
+		lineageTag: c261d9f2-c45c-4f20-9d85-3f43c394beda
+		summarizeBy: none
+		sourceColumn: Column2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Tabela 1' = m
+		mode: import
+		source =
+				let
+				    Fonte = Web.BrowserContents("https://cat-fact.herokuapp.com/#/cat/facts"),
+				    #"Tabela extraída de HTML" = Html.Table(Fonte, {{"Column1", ".md-open-menu-container .material-icons"}, {"Column2", ".material-icons + *"}}, [RowSelector=".md-open-menu-container .material-icons"]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Tabela extraída de HTML",{{"Column1", type text}, {"Column2", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

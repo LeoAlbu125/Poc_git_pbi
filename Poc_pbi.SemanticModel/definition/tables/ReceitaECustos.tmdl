@@ -1,0 +1,81 @@
+table ReceitaECustos
+	lineageTag: db84f9b2-db85-4ab2-9723-75fb2721d9bc
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: d99701c4-7305-4bf4-bbdf-c3176951526a
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d1062a4-1b64-4deb-b37b-977f2d0fa353
+		summarizeBy: sum
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Financeiro'
+		dataType: string
+		lineageTag: 6650a7e1-2896-4373-b9b7-ecb0917f0236
+		summarizeBy: none
+		sourceColumn: Tipo Financeiro
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Produto'
+		dataType: string
+		lineageTag: fa0a13ec-509a-4850-8ad1-d19dfd3b1fde
+		summarizeBy: none
+		sourceColumn: Nome do Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Receita
+		dataType: double
+		lineageTag: 038ecf6a-3160-440f-be40-7767c035baf9
+		summarizeBy: sum
+		sourceColumn: Receita
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Custos Operacionais'
+		dataType: double
+		lineageTag: a885678e-9ebe-4810-89ef-9ef11278b5d1
+		summarizeBy: sum
+		sourceColumn: Custos Operacionais
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Moeda
+		dataType: string
+		lineageTag: 31dd7730-6cf8-4b1c-ae27-84d3fe605253
+		summarizeBy: none
+		sourceColumn: Moeda
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ReceitaECustos = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\leona\OneDrive\Área de Trabalho\Resoluções Foundever\POWERBI\Receita e Custo.xlsx"), null, true),
+				    ReceitaECustos_Sheet = Fonte{[Item="ReceitaECustos",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(ReceitaECustos_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Ano", Int64.Type}, {"Mês", Int64.Type}, {"Tipo Financeiro", type text}, {"Nome do Produto", type text}, {"Receita", type number}, {"Custos Operacionais", type number}, {"Moeda", type text}}),
+				    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Tipo Alterado", {{"Receita", 0}})
+				in
+				    #"Erros Substituídos"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
